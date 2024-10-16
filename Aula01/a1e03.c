@@ -10,59 +10,35 @@ int main() {
     char letra;
 
     system("chcp 65001");
-    puts("\nBoa prática:");
+    puts("\nEntendendo a leitura de char");
+
+    // printf("Opção: ");
+    // scanf("%d", &opcao);
+    // printf("Letra: ");
+    // scanf("%c", &letra);
+ 
+    // printf("Opção: ");
+    // scanf("%d", &opcao);
+    // printf("Letra: ");
+    // letra = getchar();
 
     printf("Opção: ");
     scanf("%d", &opcao);
+    printf("\nApós a leitura do inteiro, no buffer do teclado encontramos o caractere: %i\n", getchar());
+    puts("Ele estava sendo lido pelo getchar, impedindo a leitura da letra\n");
+    puts("A tecla enter envia 2 caracteres o \\r e o \\n. O primeiro encerra a leitura e o segundo fica\r");
+    puts("no buffer. No C é interpretado como 2 \\ns\n");
     printf("Letra: ");
-
-    scanf(" %c", &letra); //espaço antes do %c
-
-    printf("Opção: %i  Letra: %c\n", opcao, letra);
-
-    puts("\nOutra opção:\n");
-    printf("Opção: ");
-    scanf("%d", &opcao);
-    printf("Letra: ");
-
     letra = getchar();
-    if (letra == '\n')
-        letra = getchar();
 
-    printf("Opção: %i  Letra: %c\n", opcao, letra);
+    puts("\n");
+    printf("%i\n%c\n", opcao, letra);
+    system("pause");
 
-    puts("\nOutra opção:\n");
-    printf("Opção: ");
-    scanf("%d", &opcao);
-    printf("Letra: ");
-
-    do {
-        letra = getchar();
-    } while (letra == '\n');
-
-    printf("Opção: %i  Letra: %c\n", opcao, letra);
-
-
-
-    puts("\nOutra opção:\n");
-    char palavra[11];
-    printf("Opção: ");
-    scanf("%d", &opcao);
-    printf("Palavra: ");
-
-    scanf(" %s", palavra); //não lê se tiver espaço. Se for usar gets teria que limpar buffer antes
-
-    printf("Opção: %i  Palavra: %s\n", opcao, palavra);
-
-
-    puts("\nOutra opção:\n");
-    printf("Opção: ");
-    scanf("%d", &opcao);
-    printf("Palavra: ");
-
-    scanf(" %[^\n]", palavra); 
-
-    printf("Opção: %i  Palavra: %s\n", opcao, palavra);
+    puts("\n\nDemonstração. Pressionando ENTER\n");
+    char buffer1, buffer2;
+    buffer1 = getchar();
+    buffer2 = getchar();
 
     system("pause");
 }

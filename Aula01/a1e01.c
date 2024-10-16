@@ -1,45 +1,41 @@
 /*
-    Demonstrando a leitura de caracteres
+    Demonstrando passagem de parâmetros
 */
 
 #include <stdio.h>
 #include <stdlib.h>
 
-int main() {
-    char jogador[21];
-    char categoria;
-    int idade;
+void dobroDeARef(int *a) {
+    *a *= 2;
+    printf("Endereço de a: %X\n", &a);
+    printf("Endereço apontado por a (parâmetro formal): %X\n", a);
+}
+
+int dobroDeA(int a) {
+    int valor = 0;
+    valor = a * 2;
+    printf("Endereço de a (parâmetro formal): %X\n", &a);
+    return(valor);
+}
+
+int main() { 
+    int val, dobro = 0;
 
     system("chcp 65001");
 
-    puts("\nEntendendo a leitura de string e char");
-    //mostrar o que ocorre quando lê só o nome e quando nome com espaço em branco
-    // printf("Jogador: ");
-    // scanf("%s", jogador); //pq sem o &
+    printf("\nPor VALOR:");
+    val = 5;
 
-    // printf("Jogador: ");
-    // gets(jogador);
+    printf("\nEndereço de val (parâmetro real): %X\n", &val);
+    dobro = dobroDeA(val);
 
-    // printf("Categoria (A, B ou C): ");
-    // scanf("%c", &categoria);
+    system("pause");
 
-    // printf("Jogador: ");
-    // scanf("%s", jogador); //pq sem o &
-    // getchar();
-    // printf("Categoria (A, B ou C): ");
-    // getchar();
-    // scanf("%c", &categoria);
-    // printf("Idade: ");
-    // scanf("%i", &idade);
- 
-    // printf("Jogador: ");
-    // gets(jogador);
-    // printf("Categoria (A, B ou C): ");
-    // categoria = getchar();
-    // printf("Idade: ");
-    // scanf("%i", &idade);
- 
-    // puts("\n\n");
-    // printf("%s\n%c\n%i\n", jogador, categoria, idade);
-    // system("pause");
+    printf("\n\nPor REFERÊNCIA:\n");
+    val = 8;
+
+    printf("\nEndereço de val (parâmetro real): %X\n", &val);
+    dobroDeARef(&val);
+
+    system("pause");
 }

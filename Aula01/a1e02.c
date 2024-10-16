@@ -1,44 +1,45 @@
 /*
-    Demonstrando a leitura de caracteres 2
+    Demonstrando a leitura de caracteres
 */
 
 #include <stdio.h>
 #include <stdlib.h>
 
 int main() {
-    int opcao;
-    char letra;
+    char jogador[21];
+    char categoria;
+    int idade;
 
     system("chcp 65001");
-    puts("\nEntendendo a leitura de char");
 
-    // printf("Opção: ");
-    // scanf("%d", &opcao);
-    // printf("Letra: ");
-    // scanf("%c", &letra);
+    puts("\nEntendendo a leitura de string e char");
+    //mostrar o que ocorre quando lê só o nome e quando nome com espaço em branco
+    // printf("Jogador: ");
+    // scanf("%s", jogador); //pq sem o &
+
+    // printf("Jogador: ");
+    // gets(jogador);
+
+    // printf("Categoria (A, B ou C): ");
+    // scanf("%c", &categoria);
+
+    // printf("Jogador: ");
+    // scanf("%s", jogador); //pq sem o &
+    // getchar();
+    // printf("Categoria (A, B ou C): ");
+    // getchar();
+    // scanf("%c", &categoria);
+    // printf("Idade: ");
+    // scanf("%i", &idade);
  
-    // printf("Opção: ");
-    // scanf("%d", &opcao);
-    // printf("Letra: ");
-    // letra = getchar();
-
-    printf("Opção: ");
-    scanf("%d", &opcao);
-    printf("\nApós a leitura do inteiro, no buffer do teclado encontramos o caractere: %i\n", getchar());
-    puts("Ele estava sendo lido pelo getchar, impedindo a leitura da letra\n");
-    puts("A tecla enter envia 2 caracteres o \\r e o \\n. O primeiro encerra a leitura e o segundo fica\r");
-    puts("no buffer. No C é interpretado como 2 \\ns\n");
-    printf("Letra: ");
-    letra = getchar();
-
-    puts("\n");
-    printf("%i\n%c\n", opcao, letra);
-    system("pause");
-
-    puts("\n\nDemonstração. Pressionando ENTER\n");
-    char buffer1, buffer2;
-    buffer1 = getchar();
-    buffer2 = getchar();
-
-    system("pause");
+    // printf("Jogador: ");
+    // gets(jogador);
+    // printf("Categoria (A, B ou C): ");
+    // categoria = getchar();
+    // printf("Idade: ");
+    // scanf("%i", &idade);
+ 
+    // puts("\n\n");
+    // printf("%s\n%c\n%i\n", jogador, categoria, idade);
+    // system("pause");
 }
