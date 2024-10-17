@@ -34,6 +34,7 @@ void incrementaVidas() {
 }
 
 int main() {
+    system("chcp 65001");    
     exibeSequencia();
     system("pause");
 }
