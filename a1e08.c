@@ -14,7 +14,7 @@ struct _aluno {
 void imprimeRegistro(const struct _aluno r) {
     printf("\tRA....: %d\n", r.ra);
     for (int i = 0; i < 3; i++)
-        printf("\tNota %d: %.1f\n", i, r.notas[i]);
+        printf("\tNota %d: %.1f\n", i+1, r.notas[i]);
     printf("\tMédia.: %.1f\n\n", r.media);
 }
 

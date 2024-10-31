@@ -21,13 +21,13 @@ void imprimeRegistro(struct _aluno r) {
     printf("\tMédia.: %.1f\n\n", r.media);
 }
 
-void calculaMedia(struct _aluno r) {
-    r.media = (r.nota1 + r.nota2 + r.nota3) / 3;
-}
-
-// void calculaMedia(struct _aluno *r) {
-//     r->media = (r->nota1 + r->nota2 + r->nota3) / 3;
+// void calculaMedia(struct _aluno r) {
+//     r.media = (r.nota1 + r.nota2 + r.nota3) / 3;
 // }
+
+void calculaMedia(struct _aluno *r) {
+    r->media = (r->nota1 + r->nota2 + r->nota3) / 3;
+}
 
 int main() {
     struct _aluno aluno = {333, 10.0, 5.5, 7.5, 0.0};
@@ -37,8 +37,8 @@ int main() {
 
     imprimeRegistro(aluno);
     puts("\n");
-    calculaMedia(aluno);
-    //calculaMedia(&aluno);
+    //calculaMedia(aluno);
+    calculaMedia(&aluno);
     imprimeRegistro(aluno);
 
     //Pq a media não foi calculada?
