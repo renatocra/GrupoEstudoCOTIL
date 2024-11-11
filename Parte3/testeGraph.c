@@ -1,5 +1,5 @@
 
-#include "graphics.h"
+#include <graphics.h>
 
 #include <stdlib.h>
 
