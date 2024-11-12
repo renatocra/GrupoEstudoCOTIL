@@ -329,7 +329,7 @@ void editElementoByIndice(TListaLigada *lista) {
 
     system("cls");
     puts("\nEDITA VALOR DO ELEMENTO PELO ÍNDICE");
-    if (!lista) {
+    if (!lista->tamanho) {
         printf("\tLista vazia!\n");
     } else {
         printf("Informe a posição que deseja recuperar: ");
@@ -466,7 +466,7 @@ void removeElementoFim(TListaLigada *lista) {
 
     system("cls");
     puts("\nREMOVE UM ELEMENTO DO FIM DA LISTA");
-    if (!lista) {
+    if (!lista->tamanho) {
         printf("\tLista vazia! Não é possível remover elementos.\n");
     } else {
         del = lista->fim;
@@ -491,15 +491,15 @@ void removeElementoInicio(TListaLigada *lista) {
 
     system("cls");
     puts("\nREMOVE UM ELEMENTO DO INÍCIO DA LISTA");
-    if (!lista) {
+    if (!lista->tamanho) {
         printf("\tLista vazia! Não é possível remover elementos.\n");
     } else {
-        del = lista->fim;
+        del = lista->inicio;
         if (lista->tamanho == 1) {
             lista->inicio = lista->fim = NULL;
         } else {
-            del->prior->next = NULL;
-            lista->fim = del->prior;
+            del->next->prior = NULL;
+            lista->inicio = del->next;
         }
         old.x = del->x;
         old.y = del->y;
@@ -512,118 +512,136 @@ void removeElementoInicio(TListaLigada *lista) {
 
 //Remover da posição indicada pelo índice informado
 void removeElementoMiddle(TListaLigada *lista) {
-    // char old[MAX_LEN_NOME];
-    // TNoNome *del, *ant;
-    // int indice, invalidIdx = 0;
+    TNoParOrd *del, old;
+    int indice, invalidIdx = 0;
 
-    // system("cls");
-    // puts("\nREMOVE UM CONVIDADO DE UMA POSIÇÃO ESPECÍFICA DA LISTA");
-    // printf("Informe a posição: ");
-    // scanf("%d", &indice);
+    system("cls");
+    puts("\nREMOVE UM ELEMENTO DE UMA POSIÇÃO ESPECÍFICA DA LISTA");
+    printf("Informe a posição: ");
+    scanf("%d", &indice);
 
-    // del = ant = lista->inicio;
-    // if (!lista->tamanho) { //lista vazia
-    //     invalidIdx = 1;
-    // } else {
-    //     for (int i = 0; i < indice; i++) {
-    //         ant = del;
-    //         del = del->next;
-    //         if (!del) {
-    //             invalidIdx = 1;
-    //             break;
-    //         }
-    //     }
-    // }
+    del = lista->inicio;
+    if (!lista->tamanho) { //lista vazia
+        invalidIdx = 1;
+    } else {
+        for (int i = 0; i < indice; i++) {
+            del = del->next;
+            if (!del) {
+                invalidIdx = 1;
+                break;
+            }
+        }
+    }
 
-    // if (invalidIdx) {
-    //     printf("\nA lista não possui a posição informada!\n");
-    // } else {
-    //     if (lista->inicio == del)
-    //         if (lista->inicio == lista->fim)  //lista unitária
-    //             lista->inicio = lista->fim = NULL;
-    //         else
-    //             lista->inicio = del->next;   //remoção na cabeça
-    //     else
-    //         ant->next = del->next;
-
-    //     strcpy(old, del->nome);
-    //     free(del);
-    //     lista->tamanho--;
-    //     printf("\nConvidado %s removido da lista.\n", old);
-    // }
+    if (invalidIdx) {
+        printf("\nA lista não possui a posição informada!\n");
+    } else {
+        if (lista->inicio == del) {    //posição 0 da lista
+            if (lista->tamanho == 1) { //lista unitária
+                lista->inicio = lista->fim = NULL;
+            } else {
+                del->next->prior = NULL;  //remoção na cabeça
+                lista->inicio = del->next;
+            }
+        } else if (lista->fim == del) {  //posição final da lista
+            del->prior->next = NULL;
+            lista->fim = del->prior;
+        } else {
+            del->prior->next = del->next;
+            del->next->prior = del->prior;
+        }
+        old.x = del->x;
+        old.y = del->y;
+        free(del);
+        printf("\nPar %5.2f;%5.2f removido da lista.\n", old.x, old.y);
+        lista->tamanho--;
+    }
     system("pause");
 }
 
 //Ordem crescente
 void ordenaListAsc(const TListaLigada *lista) {
-    // TNoNome *pos;
-    // int contConf = 0;
+    TNoParOrd *posI, *posJ, aux;
 
-    // system("cls");
-    // puts("\nRESUMO DA LISTA DE CONVIDADOS");
+    system("cls");
+    puts("\nORDENAÇÃO DA LISTA");
+    if (!lista->inicio)
+        printf("\tLista vazia!\n");
+    else if (lista->tamanho > 1) { //Lista com mais de um elemento
+        //Selection Sort
+        posI = lista->inicio;
+        while (posI->next) {
+            posJ = posI->next;
+            while (posJ) {
+                if (posI->x > posJ->x) {
+                    aux.x = posI->x;
+                    aux.y = posI->y;
+                    posI->x = posJ->x;
+                    posI->y = posJ->y;
+                    posJ->x = aux.x;
+                    posJ->y = aux.y;
+                }
+                posJ = posJ->next;    
+            }
+            posI = posI->next;
+        }    
+    }
 
-    // if (!lista->tamanho) {
-    //     printf("\tLista vazia!\n");
-    // } else {
-    //     pos = lista->inicio;
-    //     while (pos) {
-    //         if (pos->status)
-    //             contConf++;
-    //         pos = pos->next;
-    //     }
-
-    //     printf("Convidado..: %d\n", lista->tamanho);
-    //     printf("Confirmados: %d\n", contConf);
-    //     printf("Pendentes..: %d\n\n", lista->tamanho - contConf);
-    // }
-
-    system("pause");
+    puts("Lista ordenada.");
+    system("Pause");
 }
 
 //Ordem decrescente
 void ordenaListDesc(const TListaLigada *lista) {
-    // TNoNome *pos;
-    // int contConf = 0;
+    TNoParOrd *posI, *posJ, aux;
 
-    // system("cls");
-    // puts("\nRESUMO DA LISTA DE CONVIDADOS");
+    system("cls");
+    puts("\nORDENAÇÃO DA LISTA");
+    if (!lista->inicio)
+        printf("\tLista vazia!\n");
+    else if (lista->tamanho > 1) { //Lista com mais de um elemento
+        //Selection Sort
+        posI = lista->inicio;
+        while (posI->next) {
+            posJ = posI->next;
+            while (posJ) {
+                if (posI->x < posJ->x) {
+                    aux.x = posI->x;
+                    aux.y = posI->y;
+                    posI->x = posJ->x;
+                    posI->y = posJ->y;
+                    posJ->x = aux.x;
+                    posJ->y = aux.y;
+                }
+                posJ = posJ->next;    
+            }
+            posI = posI->next;
+        }    
+    }
 
-    // if (!lista->tamanho) {
-    //     printf("\tLista vazia!\n");
-    // } else {
-    //     pos = lista->inicio;
-    //     while (pos) {
-    //         if (pos->status)
-    //             contConf++;
-    //         pos = pos->next;
-    //     }
-
-    //     printf("Convidado..: %d\n", lista->tamanho);
-    //     printf("Confirmados: %d\n", contConf);
-    //     printf("Pendentes..: %d\n\n", lista->tamanho - contConf);
-    // }
-
-    system("pause");
+    puts("Lista ordenada.");
+    system("Pause");
 }
 
 //Limpar lista
 void limpaLista(TListaLigada *lista) {
-    // char confirma = 'N';
-    // TNoNome *del;
+    char confirma = 'N';
+    TNoParOrd *del;
 
-    // printf("\nPara confirmar a limpeza da lista digite Y ou qualquer outra tecla para cancelar: ");
-    // scanf(" %c", &confirma);
+    printf("\nPara confirmar a limpeza da lista digite Y ou qualquer outra tecla para cancelar: ");
+    scanf(" %c", &confirma);
 
-    // if (confirma == 'Y') {
-    //     while (lista->inicio) {
-    //         del = lista->inicio;
-    //         lista->inicio = lista->inicio->next;
-    //         free(del);
-    //     }
-    //     puts("\nLista excluída.");
-    // } else {
-    //     puts("\nLimpeza cancelada.");
-    // }
+    if (confirma == 'Y') {
+        while (lista->inicio) {
+            del = lista->inicio;
+            lista->inicio = lista->inicio->next;
+            free(del);
+        }
+        lista->tamanho = 0;
+        puts("\nLista excluída.");
+    } else {
+        puts("\nLimpeza cancelada.");
+    }
     system("pause");
 }
 
