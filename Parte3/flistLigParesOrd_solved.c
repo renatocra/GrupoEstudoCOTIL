@@ -177,7 +177,7 @@ int getComando() {
             case '0' : comando = 0; printf("\n"); break; //Sair
             default : comando = -1; break;
         }
-    } while (optionMain == -1);
+    } while (comando == -1);
     return comando;
 }
 #pragma endregion
