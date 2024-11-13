@@ -4,16 +4,16 @@
 int main() {
     int erro;
 
-    TStackSeq *pilha = create(10);
+    TStackSeq *pilha = ss_create(10);
 
-    push(pilha, 10, &erro);    
-    push(pilha, 20, &erro);    
-    push(pilha, 30, &erro);
-    printf("%d\n", pop(pilha, &erro));    
-    printf("%d\n", pop(pilha, &erro));    
-    printf("%d\n", pop(pilha, &erro));    
+    ss_push(pilha, 10, &erro);    
+    ss_push(pilha, 20, &erro);    
+    ss_push(pilha, 30, &erro);
+    printf("%d\n", ss_pop(pilha, &erro));    
+    printf("%d\n", ss_pop(pilha, &erro));    
+    printf("%d\n", ss_pop(pilha, &erro));    
 
-    destroy(&pilha);
+    ss_destroy(&pilha);
 
     return 0;
 }
