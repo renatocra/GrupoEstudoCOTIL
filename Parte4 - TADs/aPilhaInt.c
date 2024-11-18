@@ -1,5 +1,6 @@
 #include ".\stackSeq\stackSeq.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 int main() {
     int erro;
@@ -14,6 +15,8 @@ int main() {
     printf("%d\n", ss_pop(pilha, &erro));    
 
     ss_destroy(&pilha);
+
+    system("pause");
 
     return 0;
 }

@@ -706,6 +706,7 @@ int main(int argc, char **argv) {
         }
     } while (command);
 
+    limpaLista(listaPares);
     free(listaPares);
 
     return EXIT_SUCCESS;

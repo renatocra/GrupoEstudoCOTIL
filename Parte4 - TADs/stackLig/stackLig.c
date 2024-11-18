@@ -2,66 +2,89 @@
 #include <malloc.h>
 #include <stdio.h>
 
+typedef struct _NoStack {
+    float valor;
+    struct _NoStack *prior;
+} TNoStack;
+
 typedef struct _StackLig {
-    int top;
-    int *item;
+    TNoStack *topo;
+    int tamanho;
 } TStackLig;
 
-TStackLig *sl_create(int maxLen) {
+TStackLig *sl_create() {
     TStackLig *stk = (TStackLig *) calloc(1, sizeof(TStackLig));
-    stk->top = -1;
-    stk->item = (int *) calloc(maxLen, sizeof(int));
+    stk->topo = NULL;
+    stk->tamanho = 0;
     return stk;
 }
 
 void sl_destroy(TStackLig **ref) {
-    TStackLig *itm = *ref;
-    free(itm->item);
-    free(itm);
+    TStackLig *aux = *ref;
+    TNoStack *del;
+
+    while (aux->topo) {
+        del = aux->topo;
+        aux->topo = aux->topo->prior;
+        free(del);
+    }
+    aux->tamanho = 0;
+
+    free(aux);
     *ref = NULL;
 }
 
 int sl_isEmpty(const TStackLig *stk)
 {
-    return ((stk->top == -1) ? 1 : 0);
+    return ((stk->tamanho) ? 0 : 1);
 }
 
-int sl_pop(TStackLig *stk, int *underFlow) {
-    int ret;
+float sl_pop(TStackLig *stk, int *underFlow) {
+    float ret;
+    TNoStack *del;
 
     if (sl_isEmpty(stk)) {
         *underFlow = 1;
         ret = -1;
     } else {
         *underFlow = 0;
-        ret = stk->item[stk->top--];
+        ret = stk->topo->valor;
+        del = stk->topo;
+        stk->topo = stk->topo->prior;
+        stk->tamanho--;
+        free(del);
     }
     return ret;
 }
 
-void sl_push(TStackLig *stk, int valor, int *overFlow) {
-    if (stk->top == sizeof(stk->item))
-        *overFlow = 1;
-    else {
-        *overFlow = 0;
-        stk->item[++stk->top] = valor;
-    }
+void sl_push(TStackLig *stk, float valor) {
+    TNoStack *novo = (TNoStack *) calloc(1, sizeof(TNoStack));
+
+    novo->valor = valor;
+    novo->prior = stk->topo;
+    stk->topo = novo;
+    stk->tamanho++;
 }
 
-int sl_top(const TStackLig *stk, int *underFlow) {
-    int ret;
+float sl_peek(const TStackLig *stk, int *underFlow) {
+    float ret;
 
     if (sl_isEmpty(stk)) {
         *underFlow = 1;
         ret = -1;
     } else {
         *underFlow = 0;
-        ret = stk->item[stk->top];
+        ret = stk->topo->valor;
     }
     return ret;
 }
 
 void sl_print(const TStackLig *stk) {
-    for (int i = 0; i < stk->top; i++)
-        printf("%d\n", stk->item[i]);
+    TNoStack *aux;
+
+    aux = stk->topo;
+    while (stk->topo) {
+        printf("%f\n", stk->topo->valor);
+        aux = aux->prior;
+    }
 }
