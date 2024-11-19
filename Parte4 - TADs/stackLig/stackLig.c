@@ -83,8 +83,8 @@ void sl_print(const TStackLig *stk) {
     TNoStack *aux;
 
     aux = stk->topo;
-    while (stk->topo) {
-        printf("%f\n", stk->topo->valor);
+    while (aux) {
+        printf("%f\n", aux->valor);
         aux = aux->prior;
     }
 }
